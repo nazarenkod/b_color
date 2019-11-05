@@ -1,30 +1,32 @@
-//
-//  Event.swift
-//  b_color
-//
-//  Created by Dmitriy Nazarenko on 31.10.2019.
-//  Copyright © 2019 Dmitriy Nazarenko. All rights reserved.
-//
-
+import Foundation
 import SwiftUI
-import Combine
 
 
 
-struct Master: Identifiable {
-    var id: Int
-    var name: String
+public class Master: Codable, Identifiable {
+    public var id: Int
+    public var name: String
     
     
-
+    enum CodingKeys: String, CodingKey {
+        
+        case id = "id"
+        case name = "name"
+    }
     
+    public init(id: Int, name: String){
+        self.id = id
+        self.name = name
+    }
     
-    
-    
-
-
-
-
+    public init(){
+        self.id = 1
+        self.name = "default name"
+    }
 
 }
+public typealias Masters = [Master]
+
+
+
 

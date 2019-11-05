@@ -9,8 +9,35 @@
 import SwiftUI
 
 struct ContentView: View {
+//@ObservedObject var networkManager: MasterViewModel = MasterViewModel()
+//var body: some View {
+//         NavigationView {
+//                    List(self.networkManager.masters) { master in
+//                        NavigationLink(destination: MasterRow(master: master)) {
+//                           MasterRow(master: master)
+//                        }
+//                    }
+//                    .navigationBarTitle(Text("Todo"))
+//                    .navigationBarItems(leading:
+//                        Button(action: {
+//                            self.viewModel.shuffle()
+//                        }, label: {
+//                            Text("Shuffle")
+//                        }), trailing:
+//                        Button(action: {
+//                            self.viewModel.load()
+//                        }, label: {
+//                            Image(systemName: "arrow.2.circlepath")
+//                        })
+//                    )
+//                }.onAppear {
+//                    self.viewModel.load()
+//                }
+//            }
+//        }
 
-        
+
+
     var body: some View {
 
         return TabView {
@@ -23,7 +50,8 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "2.circle")
                     Text("Добавить запись")
-                }.tag(1)
+                    }.tag(1)
+
         }
     }
 }
