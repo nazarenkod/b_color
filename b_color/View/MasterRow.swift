@@ -23,6 +23,6 @@ struct MasterRow: View {
 
 //struct MasterRow_Previews: PreviewProvider {
 //    static var previews: some View {
-//        MasterRow(master.name: String)
+//        MasterRow(master: String)
 //    }
 //}

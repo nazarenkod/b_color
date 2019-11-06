@@ -9,50 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
-//@ObservedObject var networkManager: MasterViewModel = MasterViewModel()
-//var body: some View {
-//         NavigationView {
-//                    List(self.networkManager.masters) { master in
-//                        NavigationLink(destination: MasterRow(master: master)) {
-//                           MasterRow(master: master)
-//                        }
-//                    }
-//                    .navigationBarTitle(Text("Todo"))
-//                    .navigationBarItems(leading:
-//                        Button(action: {
-//                            self.viewModel.shuffle()
-//                        }, label: {
-//                            Text("Shuffle")
-//                        }), trailing:
-//                        Button(action: {
-//                            self.viewModel.load()
-//                        }, label: {
-//                            Image(systemName: "arrow.2.circlepath")
-//                        })
-//                    )
-//                }.onAppear {
-//                    self.viewModel.load()
-//                }
-//            }
-//        }
-
-
-
+    
+    @State var selected: Int = 1
+    
+    
     var body: some View {
-
-        return TabView {
-                Text("Events")
+        
+        return TabView(selection: $selected) {
+            EventsView()
                 .tabItem {
-                    Image(systemName: "1.circle")
-                    Text("Записи")
-                }.tag(0)
-                MasterView()
+                    CustomTabView(iconName: "1.circle", tabName: "Записи")
+            }.tag(0)
+            MasterView()
                 .tabItem {
-                    Image(systemName: "2.circle")
-                    Text("Добавить запись")
-                    }.tag(1)
-
-        }
+                    CustomTabView(iconName: "2.circle", tabName: "Добавить запись")
+            }.tag(1)
+            
+        }.font(.headline)
     }
 }
 
