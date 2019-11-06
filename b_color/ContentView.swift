@@ -9,22 +9,22 @@
 import SwiftUI
 
 struct ContentView: View {
-
+    
     @State var selected: Int = 1
     
-
-    var body: some View {
     
+    var body: some View {
+        
         return TabView(selection: $selected) {
-                EventsView()
+            EventsView()
                 .tabItem {
                     CustomTabView(iconName: "1.circle", tabName: "Записи")
-                }.tag(0)
-                MasterView()
+            }.tag(0)
+            MasterView()
                 .tabItem {
                     CustomTabView(iconName: "2.circle", tabName: "Добавить запись")
-                    }.tag(1)
-
+            }.tag(1)
+            
         }.font(.headline)
     }
 }

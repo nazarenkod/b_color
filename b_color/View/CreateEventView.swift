@@ -26,22 +26,31 @@ struct CreateEventView: View {
                     TextField("instagram",text: $clientName)
                     TextField("Цена",text: $clientName)
                 }
-              
+                Section(){
+                    
+                    Button(action: {
+                        print("Taped")
+                    }){
+                        Text("Tap me")
+                    }
+                }
                 
-   
-            }
-                 
+                
                 
             }
-        
-            .navigationBarTitle(Text("Мастер:  "+selectedMaster.name))
-      }
-        
-        
+            
+            
         }
+            
+        .navigationBarTitle(Text("Мастер:  "+selectedMaster.name))
+    }
+    
+    
+}
 
-    
-    
+
+
+
 
 
 //struct CreateEventView_Previews: PreviewProvider {

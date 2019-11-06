@@ -18,7 +18,7 @@ struct CustomTabView: View {
             Image(systemName: iconName)
             Text(tabName)
         }
-          
+        
     }
     init(iconName:String, tabName: String){
         self.iconName = iconName
