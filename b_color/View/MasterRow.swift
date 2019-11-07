@@ -1,28 +1,22 @@
 //
-//  MasterRow.swift
+//  MasterRowNew.swift
 //  b_color
 //
-//  Created by Dmitriy Nazarenko on 01.11.2019.
+//  Created by Dmitriy Nazarenko on 07.11.2019.
 //  Copyright © 2019 Dmitriy Nazarenko. All rights reserved.
 //
 
 import SwiftUI
 
-struct MasterRow: View {
-    var master: Master
+struct MasterRowNew: View {
+    
+    @State var masterNew: Master
     
     var body: some View {
-       
-        HStack{
-            Text(master.name).font(.largeTitle)
-           
+        NavigationLink(destination: CreateEventView(viewModel: .init(masterNew: masterNew))) {
+            Text(masterNew.name)
         }
-       
     }
 }
 
-//struct MasterRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MasterRow(master: String)
-//    }
-//}
+

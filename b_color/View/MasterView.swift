@@ -1,34 +1,34 @@
 //
-//  MasterView.swift
+//  MasterViewNew.swift
 //  b_color
 //
-//  Created by Dmitriy Nazarenko on 01.11.2019.
+//  Created by Dmitriy Nazarenko on 07.11.2019.
 //  Copyright © 2019 Dmitriy Nazarenko. All rights reserved.
 //
 
 import SwiftUI
 
-struct MasterView: View {
-    @ObservedObject var networkManager: MasterViewModel = MasterViewModel()
+struct MasterViewNew: View {
+    
+    @ObservedObject var viewModel: MasterListViewModel
+    
     var body: some View {
-        //        let master1 = Master(id: 1, name: "Полина")
-        //        let master2 = Master(id: 2, name: "Диана")
-        //        let masters = [master1,master2]
-        networkManager.load()
-        return
-            NavigationView {
-                List(networkManager.masters){ master in
-                    NavigationLink(destination: CreateEventView(selectedMaster: master)){
-                        MasterRow(master: master) .navigationBarTitle("Мастера")
-                    }
-                }
+        NavigationView {
+            List(viewModel.mastersNew) { masterNew in
+                MasterRow(masterNew: masterNew)
             }
-            .navigationViewStyle(DoubleColumnNavigationViewStyle()).accessibility(hidden: false)
+            .alert(isPresented: $viewModel.isErrorShown, content: { () -> Alert in
+                Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
+            }).navigationBarTitle(Text("Мастера"))
+        }
+        .onAppear(perform: { self.viewModel.apply(.onAppear) })
     }
 }
 
-struct MasterView_Previews: PreviewProvider {
-    static var previews: some View {
-        MasterView()
-    }
-}
+//struct MasterViewNew_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MasterViewNew()
+//    }
+//}
+
+

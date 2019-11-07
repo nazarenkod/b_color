@@ -1,32 +1,16 @@
+//
+//  SwiftUIView.swift
+//  b_color
+//
+//  Created by Dmitriy Nazarenko on 07.11.2019.
+//  Copyright © 2019 Dmitriy Nazarenko. All rights reserved.
+//
+
 import Foundation
 import SwiftUI
 
-
-
-public class Master: Codable, Identifiable {
-    public var id: Int
-    public var name: String
-    
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case id = "id"
-        case name = "name"
-    }
-    
-    public init(id: Int, name: String){
-        self.id = id
-        self.name = name
-    }
-    
-    public init(){
-        self.id = 1
-        self.name = "default name"
-    }
-
+struct MasterNew: Decodable, Hashable, Identifiable {
+    var id: Int
+    var name: String
+//? - опциональный параметр
 }
-public typealias Masters = [Master]
-
-
-
-

@@ -1,23 +1,23 @@
 //
-//  CreateEventView.swift
+//  RepositoryDetailView.swift
 //  b_color
 //
-//  Created by Dmitriy Nazarenko on 01.11.2019.
+//  Created by Dmitriy Nazarenko on 07.11.2019.
 //  Copyright © 2019 Dmitriy Nazarenko. All rights reserved.
 //
 
+import Foundation
 import SwiftUI
 
-struct CreateEventView: View {
-    
+struct CreateEventViewNew: View {
+    @ObservedObject var viewModel: MasterDetailViewModel
     @State var clientName: String = ""
     @State var phoneNumber: String = ""
     @State var instagram: String = ""
     @State var price: String = ""
     
-    var selectedMaster: Master
-    
     var body: some View {
+      
         NavigationView {
             Form{
                 Section(){
@@ -42,19 +42,20 @@ struct CreateEventView: View {
             
         }
             
-        .navigationBarTitle(Text("Мастер:  "+selectedMaster.name))
+        .navigationBarTitle(Text("Мастер:  "+viewModel.masterNew.name))
     }
-    
-    
 }
 
-
-
-
-
-
-//struct CreateEventView_Previews: PreviewProvider {
+//#if DEBUG
+//struct RepositoryDetailView_Previews : PreviewProvider {
 //    static var previews: some View {
-//        CreateEventView(selectedMaster: Master)
+//        RepositoryDetailView(viewModel: .init(
+//            repository: Repository(id: 1, fullName: "foo", owner:
+//                User(id: 1, login: "bar", avatarUrl: URL(string: "http://baz.com")!))
+//            )
+//        )
 //    }
 //}
+//#endif
+
+
