@@ -9,5 +9,5 @@
 import Foundation
 
 struct FindAllMastersResponse: Decodable {
-    var items: [MasterNew]
+    var items: [Master]
 }

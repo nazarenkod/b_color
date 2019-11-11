@@ -8,10 +8,14 @@
 
 import Foundation
 
-struct SearchRepositoryRequest: APIRequestType {
+struct FindAllMastersRequest: APIRequestType {
+ 
+    
     typealias Response = FindAllMastersResponse
     
+    
     var path: String { return "master" }
+   // var method: String {return "GET"}
     var queryItems: [URLQueryItem]? {
         return [
             .init(name: "q", value: "SwiftUI"),

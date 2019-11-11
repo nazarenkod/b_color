@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct CreateEventViewNew: View {
+struct CreateEventView: View {
     @ObservedObject var viewModel: MasterDetailViewModel
     @State var clientName: String = ""
     @State var phoneNumber: String = ""
@@ -22,9 +22,9 @@ struct CreateEventViewNew: View {
             Form{
                 Section(){
                     TextField("Фамилия Имя",text: $clientName)
-                    TextField("Номер телефона",text: $clientName)
-                    TextField("instagram",text: $clientName)
-                    TextField("Цена",text: $clientName)
+                    TextField("Номер телефона",text: $phoneNumber)
+                    TextField("instagram",text: $instagram)
+                    TextField("Цена",text: $price)
                 }
                 Section(){
                     
@@ -42,7 +42,7 @@ struct CreateEventViewNew: View {
             
         }
             
-        .navigationBarTitle(Text("Мастер:  "+viewModel.masterNew.name))
+        .navigationBarTitle(Text("Мастер:  "+viewModel.master.name))
     }
 }
 

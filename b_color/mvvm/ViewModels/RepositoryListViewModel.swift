@@ -1,16 +1,16 @@
 //
-//  RepositoryListViewModel.swift
-//  b_color
+//  ListViewModel.swift
+//  SwiftUI-MVVM
 //
-//  Created by Dmitriy Nazarenko on 07.11.2019.
-//  Copyright © 2019 Dmitriy Nazarenko. All rights reserved.
+//  Created by Yusuke Kita on 6/5/19.
+//  Copyright © 2019 Yusuke Kita. All rights reserved.
 //
 
 import Foundation
 import SwiftUI
 import Combine
 
-final class MasterListViewModel: ObservableObject, UnidirectionalDataFlowType {
+final class RepositoryListViewModel: ObservableObject, UnidirectionalDataFlowType {
     typealias InputType = Input
 
     private var cancellables: [AnyCancellable] = []
@@ -27,12 +27,12 @@ final class MasterListViewModel: ObservableObject, UnidirectionalDataFlowType {
     private let onAppearSubject = PassthroughSubject<Void, Never>()
     
     // MARK: Output
-    @Published private(set) var masters: [Master] = []
+    @Published private(set) var repositories: [Repository] = []
     @Published var isErrorShown = false
     @Published var errorMessage = ""
     @Published private(set) var shouldShowIcon = false
     
-    private let responseSubject = PassthroughSubject<FindAllMastersResponse, Never>()
+    private let responseSubject = PassthroughSubject<SearchRepositoryResponse, Never>()
     private let errorSubject = PassthroughSubject<APIServiceError, Never>()
     private let trackingSubject = PassthroughSubject<TrackEventType, Never>()
     
@@ -51,11 +51,11 @@ final class MasterListViewModel: ObservableObject, UnidirectionalDataFlowType {
     }
     
     private func bindInputs() {
-        let request = FindAllMastersRequest()
+        let request = SearchRepositoryRequest()
         let responsePublisher = onAppearSubject
             .flatMap { [apiService] _ in
                 apiService.response(from: request)
-                    .catch { [weak self] error -> Empty<FindAllMastersResponse, Never> in
+                    .catch { [weak self] error -> Empty<SearchRepositoryResponse, Never> in
                         self?.errorSubject.send(error)
                         return .init()
                 }
@@ -82,7 +82,7 @@ final class MasterListViewModel: ObservableObject, UnidirectionalDataFlowType {
     private func bindOutputs() {
         let repositoriesStream = responseSubject
             .map { $0.items }
-            .assign(to: \.masters, on: self)
+            .assign(to: \.repositories, on: self)
         
         let errorMessageStream = errorSubject
             .map { error -> String in

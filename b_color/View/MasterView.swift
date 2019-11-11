@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct MasterViewNew: View {
+struct MasterView: View {
     
     @ObservedObject var viewModel: MasterListViewModel
     
     var body: some View {
         NavigationView {
-            List(viewModel.mastersNew) { masterNew in
-                MasterRow(masterNew: masterNew)
+            List(viewModel.masters) { master in
+                MasterRow(master: master)
             }
             .alert(isPresented: $viewModel.isErrorShown, content: { () -> Alert in
                 Alert(title: Text("Error"), message: Text(viewModel.errorMessage))

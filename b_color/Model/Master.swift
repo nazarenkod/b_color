@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct MasterNew: Decodable, Hashable, Identifiable {
+struct Master: Decodable, Hashable, Identifiable {
     var id: Int
     var name: String
 //? - опциональный параметр

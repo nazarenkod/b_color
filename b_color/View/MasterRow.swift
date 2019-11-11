@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-struct MasterRowNew: View {
+struct MasterRow: View {
     
-    @State var masterNew: Master
+    @State var master: Master
     
     var body: some View {
-        NavigationLink(destination: CreateEventView(viewModel: .init(masterNew: masterNew))) {
-            Text(masterNew.name)
+        NavigationLink(destination: CreateEventView(viewModel: .init(master: master))) {
+            Text(master.name)
         }
     }
 }
