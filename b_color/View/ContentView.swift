@@ -20,7 +20,7 @@ struct ContentView: View {
                 .tabItem {
                     CustomTabView(iconName: "1.circle", tabName: "Записи")
             }.tag(0)
-            MasterView()
+            MasterListView()
                 .tabItem {
                     CustomTabView(iconName: "2.circle", tabName: "Добавить запись")
             }.tag(1)
