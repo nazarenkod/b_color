@@ -13,6 +13,11 @@ struct Master: Decodable, Identifiable {
         self.name = name
     }
     
+    init(master: Master) {
+        self.id = master.id
+        self.name = master.name
+    }
+    
 
 
 }

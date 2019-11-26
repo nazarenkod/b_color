@@ -5,10 +5,21 @@ import SwiftUI
 import Combine
 
 public class MasterViewModel: ObservableObject {
-    @Published var masters :[Master] = []
+    @Published var masters = [Master]()
     
     init() {
-        initMasters()
+        
+        fetchMasters ()
+    }
+    
+    func fetchMasters(){
+        MasterService().getAllMasters { masters in
+            if let masters = masters {
+                self.masters = masters.map(Master.init)
+                
+            }
+            
+        }
     }
         
 

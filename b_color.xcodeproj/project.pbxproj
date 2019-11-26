@@ -17,6 +17,7 @@
 		0D4146B92370BDDC00940CE9 /* MasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4146B82370BDDC00940CE9 /* MasterViewModel.swift */; };
 		0D4146BF2373552F00940CE9 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4146BE2373552F00940CE9 /* CustomTabView.swift */; };
 		0D4146C123735B2A00940CE9 /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4146C023735B2A00940CE9 /* EventsView.swift */; };
+		0D602D74238DB138008BF57E /* MasterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D602D73238DB138008BF57E /* MasterService.swift */; };
 		0D9EC5F1236C73EA00A7A3BA /* MasterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EC5F0236C73EA00A7A3BA /* MasterRow.swift */; };
 		0D9EC5F4236C756900A7A3BA /* CreateEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EC5F3236C756900A7A3BA /* CreateEventView.swift */; };
 		0D9EC5F8236C8E7B00A7A3BA /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EC5F7236C8E7B00A7A3BA /* MasterView.swift */; };
@@ -35,6 +36,7 @@
 		0D4146B82370BDDC00940CE9 /* MasterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewModel.swift; sourceTree = "<group>"; };
 		0D4146BE2373552F00940CE9 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		0D4146C023735B2A00940CE9 /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
+		0D602D73238DB138008BF57E /* MasterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterService.swift; sourceTree = "<group>"; };
 		0D9EC5F0236C73EA00A7A3BA /* MasterRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterRow.swift; sourceTree = "<group>"; };
 		0D9EC5F3236C756900A7A3BA /* CreateEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventView.swift; sourceTree = "<group>"; };
 		0D9EC5F7236C8E7B00A7A3BA /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
@@ -73,13 +75,13 @@
 			children = (
 				0D11A12123672B5000C17F61 /* AppDelegate.swift */,
 				0D11A12323672B5000C17F61 /* SceneDelegate.swift */,
-				0D11A12523672B5000C17F61 /* ContentView.swift */,
 				0D11A12723672B5200C17F61 /* Assets.xcassets */,
 				0D11A12C23672B5200C17F61 /* LaunchScreen.storyboard */,
 				0D11A12F23672B5200C17F61 /* Info.plist */,
 				0D11A12923672B5200C17F61 /* Preview Content */,
-				0D4146B72370BDA200940CE9 /* ViewModel */,
-				0DDF8C9B236B76C500461544 /* View */,
+				0D602D72238DAF21008BF57E /* Services */,
+				0D4146B72370BDA200940CE9 /* ViewModels */,
+				0DDF8C9B236B76C500461544 /* Views */,
 				0DDF8C99236B766D00461544 /* Model */,
 			);
 			path = b_color;
@@ -93,12 +95,20 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		0D4146B72370BDA200940CE9 /* ViewModel */ = {
+		0D4146B72370BDA200940CE9 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				0D4146B82370BDDC00940CE9 /* MasterViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0D602D72238DAF21008BF57E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0D602D73238DB138008BF57E /* MasterService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		0DDF8C99236B766D00461544 /* Model */ = {
@@ -109,16 +119,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		0DDF8C9B236B76C500461544 /* View */ = {
+		0DDF8C9B236B76C500461544 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0D11A12523672B5000C17F61 /* ContentView.swift */,
 				0D9EC5F7236C8E7B00A7A3BA /* MasterView.swift */,
 				0D9EC5F0236C73EA00A7A3BA /* MasterRow.swift */,
 				0D9EC5F3236C756900A7A3BA /* CreateEventView.swift */,
 				0D4146BE2373552F00940CE9 /* CustomTabView.swift */,
 				0D4146C023735B2A00940CE9 /* EventsView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +215,7 @@
 				0D11A12623672B5000C17F61 /* ContentView.swift in Sources */,
 				0D9EC5F8236C8E7B00A7A3BA /* MasterView.swift in Sources */,
 				0D4146BF2373552F00940CE9 /* CustomTabView.swift in Sources */,
+				0D602D74238DB138008BF57E /* MasterService.swift in Sources */,
 				0D9EC5F4236C756900A7A3BA /* CreateEventView.swift in Sources */,
 				0D9EC5F1236C73EA00A7A3BA /* MasterRow.swift in Sources */,
 			);
