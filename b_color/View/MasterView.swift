@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct MasterView: View {
-    @ObservedObject var networkManager: MasterViewModel = MasterViewModel()
+    @ObservedObject var masterVM = MasterViewModel()
+    
     var body: some View {
-        //        let master1 = Master(id: 1, name: "Полина")
-        //        let master2 = Master(id: 2, name: "Диана")
-        //        let masters = [master1,master2]
-        networkManager.load()
+        
+        
         return
+            
             NavigationView {
-                List(networkManager.masters){ master in
+                List(masterVM.masters){ master in
                     NavigationLink(destination: CreateEventView(selectedMaster: master)){
                         MasterRow(master: master) .navigationBarTitle("Мастера")
                     }
