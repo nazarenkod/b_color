@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct Master: Decodable, Identifiable {
+struct Master: Decodable, Identifiable, Hashable {
     let id: Int
     let name: String
     
