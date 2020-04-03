@@ -14,7 +14,7 @@ import Foundation
 
 struct Event: Codable {
     
-
+    let id: Int?
     let clientName: String
     let phoneNumber: String
     let instagram: String
@@ -40,7 +40,7 @@ struct Event: Codable {
         let durationFormatter = DateFormatter()
         durationFormatter.dateFormat = "HH:mm"
         
-       
+        self.id = nil
         self.clientName = clientName
         self.phoneNumber = phoneNumber
         self.instagram = instagram
@@ -50,6 +50,29 @@ struct Event: Codable {
         self.duration = durationFormatter.string(from: duration)
         self.master = master
     }
+    
+
+    
+    public init(id: Int,clientName: String, phoneNumber: String, instagram:String, price:String,date: Date,time: Date,duration: Date,master: Int){
+              let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH:mm"
+            
+            let durationFormatter = DateFormatter()
+            durationFormatter.dateFormat = "HH:mm"
+            
+            self.id = id
+            self.clientName = clientName
+            self.phoneNumber = phoneNumber
+            self.instagram = instagram
+            self.price = price
+            self.date = dateFormatter.string(from: date)
+            self.time = timeFormatter.string(from: time)
+            self.duration = durationFormatter.string(from: duration)
+            self.master = master
+        }
 }
 
 

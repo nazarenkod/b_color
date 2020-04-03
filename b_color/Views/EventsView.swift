@@ -10,94 +10,160 @@ import SwiftUI
 
 struct EventsView: View {
     @ObservedObject var masterVM = MasterViewModel()
-    @ObservedObject var eventVM = EventViewModel()
+    @EnvironmentObject var eventVM: EventViewModel
     @State  var date = Date()
-    @State private var selectedMaster = 0
-   // @State var refresh: Bool = false
+    @State private var master = 0
+    @State var isPresented = false
+    @State var showCreateSheet = false
+    @State var showEditSheet = false
+    @State var eventId: Int = 0
+    @State var clientName: String = ""
+    @State var phoneNumber: String = ""
+    @State var instagram: String = ""
+    @State var price: String = ""
+    @State var dateNew: String = ""
+    @State var time: String = ""
+    @State var duration: String = ""
+  
+    
+  
+   
+    
+    
+ 
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
-        formatter.timeStyle = .short
+        
+        //formatter.timeStyle = .short
         return formatter
     }
+    
+
     
     
     
     
     var body: some View {
+        let dateForm = DateFormatter()
+        dateForm.dateFormat = "dd.MM.yyyy"
         
-//        if refresh {
-//            eventVM.fetchEvents()
-//            refresh = true
-//        }
+        let format = DateFormatter()
+        format.dateFormat = "EEEE"
+        let formattedDate = format.string(from: date)
+        print("++++++++++++++++++++")
+        print("events in events view \(eventVM.events)")
+       // eventVM.fetchEvents()
         
-      
+   
         
-    
-      return  LoadingView(isShowing: .constant(eventVM.loading)) {
-            
+      return
+        NavigationView {
+            LoadingView(isShowing: .constant(eventVM.loading)) {
         VStack{
+            HStack{
+                Text("\(self.eventId)")
+                Text(formattedDate).bold()
+            }
             HStack {
                       Button("Priv"){
                           self.date = Calendar.current.date(byAdding: .day, value: -1, to: self.date)!
+                        self.eventVM.fetchEvents()
                       }
                 Text(self.dateFormatter.string(from: self.date))
                     Button("Next"){
                       self.date = Calendar.current.date(byAdding: .day, value: 1, to: self.date)!
+                        self.eventVM.fetchEvents()
                          }
                       
                   }
-            Picker(selection: self.$selectedMaster, label: Text("Datacenter")) {
-                ForEach(self.masterVM.masters) { master in
-                    Text(master.name).tag(master.id)
-                      }
-                  }
-                  .pickerStyle(SegmentedPickerStyle())
             Spacer()
-          
             HStack {
                 //columns
                 ForEach(self.masterVM.masters) { master in
+             
                     VStack {
+                        
+                        
                         //rows
                         List {
-                        ForEach(self.eventVM.events){ event in
-                        
-                            if event.master.id == master.id {
-                                
-                                   Card(title: event.clientName)
-                                
-                                
-//                                Text(event.clientName)
-//                                Text(event.master.name)
+                            ForEach(self.eventVM.events.filter {$0.date.contains(dateForm.string(from:self.date))}) { event in
+                                if event.master.id == master.id {
+                                   
+                                    Card(event: event).onAppear(){
+                                        print("on apear")
+                                        self.eventVM.fetchEvents()
+                                    }
+                                    
+                                    
+                                        .sheet(isPresented: self.$showEditSheet){
+                                                                
+                                            EditEventView(
+                                                eventId: self.$eventId,
+                                                clientName: self.$clientName,
+                                                phoneNumber: self.$phoneNumber,
+                                                instagram: self.$instagram,
+                                                price: self.$price,
+                                                date: self.$dateNew,
+                                                master: self.$master,
+                                                showModal: self.$showEditSheet,
+                                                time: self.$time,
+                                                duration : self.$duration
+                                            ).environmentObject(self.eventVM)
+                                    }
+                                        
+                                                    .gesture(
+                                                                LongPressGesture()
+                                                                    .onEnded { _ in
+                                                                        self.eventId = event.id
+                                                                        self.clientName = event.clientName
+                                                                        self.phoneNumber = event.phoneNumber
+                                                                        self.instagram = event.instagram
+                                                                        self.price = event.price
+                                                                        self.dateNew = event.date
+                                                                        self.time = event.time
+                                                                        self.duration = event.duration
+                                                                        self.master = event.master.id
+                                                                        
+                                                                        self.eventVM.fetchEvents()
+                                                                        self.showEditSheet.toggle()
+                                                                        
+                                                                }
+                                                        )
+                                                        
+                             
+                             
+
+                                    
                             }
-                            
+                                
+                            }
+                       
+                                                    }
+                    }
 
                         }
-                        }.onAppear(perform: {
-                            self.eventVM.fetchEvents()
-                            UITableView.appearance().separatorStyle = .none
-                        })
-                    }
+
+                }.sheet(isPresented: self.$showCreateSheet){
+
+                    CreateEventView(showModal:self.$showCreateSheet).environmentObject(self.eventVM)}}}
+            .navigationBarTitle(Text("Events"), displayMode: .large)
+            .navigationBarItems(trailing:
+                Button(action: {
+                    self.showCreateSheet.toggle()
+                }) {
+                    Image(systemName: "bell.circle.fill")
+                        .font(Font.system(.title))
                 }
-            }
-     
-  
- 
-
-            }
-            
-
-            
-            
+            )
         }
-      
-        
-        }
+
+        .navigationViewStyle(StackNavigationViewStyle())
+
+         
     }
+}
 
-       
-    
 
 
 

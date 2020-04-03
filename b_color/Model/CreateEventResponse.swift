@@ -13,4 +13,9 @@ struct CreateEventResponse: Decodable{
     
     let status: String
     
+    
+    init(status:String) {
+        self.status = status
+    }
+    
 }

@@ -10,24 +10,85 @@ import SwiftUI
 
 struct Card: View {
     
-    var title: String
+    var event: EventResponse
+  //  var test = false
+    
+    
+    
+    
     var body: some View {
-        ZStack {
+      
+         ZStack {
             Rectangle()
                 .fill(Color.black)
-                .frame(height: 60)
+                .frame(height: 120)
                 .cornerRadius(10)
                 .padding(8)
-            Text(title)
-                .foregroundColor(.white)
-                .font(.subheadline)
-                .bold()
+            .shadow(color: .gray, radius: 12)
+        
+            VStack {
+                
+                HStack {
+                    Text(event.clientName)
+                                 .foregroundColor(.white)
+                                 .font(.subheadline)
+                                 .bold()
+                    
+                }
+                HStack {
+                    Text(event.master.name)
+                                        .foregroundColor(.white)
+                                        .font(.subheadline)
+                                        .bold()
+                }
+                HStack {
+                               Text(event.date)
+                                                   .foregroundColor(.white)
+                                                   .font(.subheadline)
+                                                   .bold()
+                           }
+                HStack {
+                               Text(event.time)
+                                                   .foregroundColor(.white)
+                                                   .font(.subheadline)
+                                                   .bold()
+                           }
+                HStack {
+                               Text(event.duration)
+                                                   .foregroundColor(.white)
+                                                   .font(.subheadline)
+                                                   .bold()
+                           }
+                
+            }
+            
+         
+//            HStack {
+//                       Text(event.time)
+//                                    .foregroundColor(.white)
+//                                    .font(.subheadline)
+//                                    .bold()
+//                       
+//                   }
+//            HStack {
+//                       Text(event.duration)
+//                                    .foregroundColor(.white)
+//                                    .font(.subheadline)
+//                                    .bold()
+//                       
+//                   }
+
+                                      
+         
+         
+         
         }
     }
-}
+
 
 //struct Card_Previews: PreviewProvider {
 //    static var previews: some View {
 //        Card()
 //    }
 //}
+}

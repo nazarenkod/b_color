@@ -13,15 +13,24 @@ import Combine
 public class EventViewModel: ObservableObject {
     @Published var events = [EventResponse]()
     @Published var loading = true
-    @Published var polina = [EventResponse]()
+    @Published var status = "error"
+    
+    
+    
+
+    private var masterService: MasterService
+  
+
   
 
     init() {
-    
+        self.masterService = MasterService()
         fetchEvents ()
-
-        
     }
+    
+  
+    
+
     
     
 
@@ -29,14 +38,46 @@ public class EventViewModel: ObservableObject {
     func fetchEvents(){
         MasterService().getAllEvents { events in
             if let events = events {
-                self.events = events.map(EventResponse.init)
+                DispatchQueue.main.async {
+                   self.events = events.map(EventResponse.init)
+                }
+                
+                print("events fetch \(self.events)")
                 self.loading = false
+                
+                
+               
                
             }
- 
+        }
+    }
+    
+    func removeEvent(eventId:String){
+        self.status = MasterService().removeEvent(eventId: eventId)
+      
+            }
+    
+    
+    func createOrder(clientName: String,phoneNumber: String,instagram: String,price:String, date: Date,time: Date,duration: Date,master: Int) {
+        let event = Event(clientName: clientName,phoneNumber:phoneNumber,instagram: instagram,price: price,date: date,time: time,duration: duration, master:master )
+        self.masterService.createEvent(event: event) { _ in
+          
+           
             
         }
     }
+    
+    func editEvent(id: Int,clientName: String,phoneNumber: String,instagram: String,price:String, date: Date,time: Date,duration: Date,master: Int) {
+        let event = Event(id: id,clientName: clientName,phoneNumber:phoneNumber,instagram: instagram,price: price, date: date, time: time,duration: duration, master:master )
+        self.masterService.editEvent(event: event) { _ in
+          
+           
+            
+        }
+    }
+        }
+    
+
         
 
     
@@ -48,4 +89,4 @@ public class EventViewModel: ObservableObject {
 //    }
     
     
-    }
+

@@ -5,7 +5,7 @@ import SwiftUI
 import Combine
 
 public class MasterViewModel: ObservableObject {
-    @Published var masters = [Master]()
+    @Published var masters = [Master]() 
     @Published var loading = true
 
     

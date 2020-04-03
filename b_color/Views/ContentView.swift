@@ -10,22 +10,13 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var selected: Int = 1
-    
-    
     var body: some View {
         
-        TabView(selection: $selected) {
             EventsView()
-                .tabItem {
-                    CustomTabView(iconName: "1.circle", tabName: "Записи")
-            }.tag(0)
-            MasterView()
-                .tabItem {
-                    CustomTabView(iconName: "2.circle", tabName: "Добавить запись")
-            }.tag(1)
-            
-        }.font(.headline)
+                .onAppear(perform: {
+                                      
+                                        UITableView.appearance().separatorStyle = .none
+                                    })
     }
 }
 
