@@ -13,7 +13,7 @@ class MasterService {
     
     
     
-    func createEvent(event: Event,  complition: @escaping (CreateEventResponse?) -> ()) {
+    func createEvent(event: Event,  complition: @escaping (BaseCreationResponse?) -> ()) {
         guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/addEvent") else {
 
             fatalError("inavalid url")
@@ -33,7 +33,7 @@ class MasterService {
                 
                 return
             }
-            let createEventResponse = try? JSONDecoder().decode(CreateEventResponse.self,from: data)
+            let createEventResponse = try? JSONDecoder().decode(BaseCreationResponse.self,from: data)
             DispatchQueue.main.async {
                 complition(createEventResponse)
                 print("create event")
@@ -43,7 +43,7 @@ class MasterService {
         
     }
     
-    func editEvent(event: Event,  complition: @escaping (CreateEventResponse?) -> ()) {
+    func editEvent(event: Event,  complition: @escaping (BaseCreationResponse?) -> ()) {
         guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/editEvent") else {
 
             fatalError("inavalid url")
@@ -63,17 +63,17 @@ class MasterService {
                 
                 return
             }
-            let createEventResponse = try? JSONDecoder().decode(CreateEventResponse.self,from: data)
+            let createEventResponse = try? JSONDecoder().decode(BaseCreationResponse.self,from: data)
             DispatchQueue.main.async {
                 complition(createEventResponse)
-                print("create event")
+                print("edit event")
             }
             
         }.resume()
         
     }
     
-    func removeEvent(eventId: String) -> String {
+    func removeEvent(eventId: String,completion: @escaping (BaseCreationResponse) -> ()) {
         guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/event/remove/\(eventId)") else {
 
             fatalError("inavalid url")
@@ -85,6 +85,7 @@ class MasterService {
         
         
        let task =  URLSession.shared.dataTask(with: request) { data, response, error in
+       // let response
      // Check if Error took place
                 if let error = error {
                     print("Error took place \(error)")
@@ -98,16 +99,51 @@ class MasterService {
                 
                 // Convert HTTP Response Data to a simple String
                 if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                    
                     print("Response data string:\n \(dataString)")
+                    let response = try? JSONDecoder().decode(BaseCreationResponse.self, from: data)
+                                DispatchQueue.main.async {
+                                    
+                                    completion(response!)
+                                }
                 }
                 
             }
             task.resume()
-        return "Success"
+        
         
     }
     
-    func getAllMasters(completion: @escaping ([Master]?) -> ()) {
+//    func getAllMasters(completion: @escaping ([Master]?) -> ()) {
+//
+//        guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/master") else {
+//            completion(nil)
+//            return
+//        }
+//        var request = URLRequest(url:url)
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        URLSession.shared.dataTask(with: request) { data, response, error in
+//
+//            guard let data = data, error == nil
+//
+//                else {
+//                   DispatchQueue.main.async {
+//
+//                             completion(nil)
+//                         }
+//                return
+//            }
+//            let masters = try? JSONDecoder().decode([Master].self, from: data)
+//            DispatchQueue.main.async {
+//                completion(masters)
+//            }
+//
+//
+//        }.resume()
+//    }
+    
+    func getAllMasters(completion: @escaping (MasterResponse?) -> ()) {
         
         guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/master") else {
             completion(nil)
@@ -127,7 +163,7 @@ class MasterService {
                          }
                 return
             }
-            let masters = try? JSONDecoder().decode([Master].self, from: data)
+            let masters = try? JSONDecoder().decode(MasterResponse.self, from: data)
             DispatchQueue.main.async {
                 completion(masters)
             }
@@ -136,35 +172,6 @@ class MasterService {
         }.resume()
     }
     
-//    func getAllEvents(completion: @escaping ([EventResponse]?) -> ()) {
-//
-//        guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/event") else {
-//
-//            completion(nil)
-//            return
-//        }
-//        var request = URLRequest(url:url)
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let data = data, error == nil
-//
-//                else {
-//                   DispatchQueue.main.async {
-//
-//                             completion(nil)
-//                         }
-//                return
-//            }
-//
-//            let events = try? JSONDecoder().decode([EventResponse].self, from: data)
-//            DispatchQueue.main.async {
-//                completion(events)
-//            }
-//
-//
-//        }.resume()
-//    }
     
     func getAllEvents(completion: @escaping (BaseEventResponse?) -> ()) {
         

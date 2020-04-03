@@ -17,9 +17,12 @@ struct Master: Decodable, Identifiable, Hashable {
         self.id = master.id
         self.name = master.name
     }
+}
+
+struct MasterResponse: Decodable {
     
-
-
+    let status: String
+    let masters: [Master]
 }
 
 

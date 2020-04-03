@@ -26,6 +26,7 @@
 		0D948E67241187BB00F8C5BB /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D948E66241187BB00F8C5BB /* EditEventView.swift */; };
 		0D9F76C223FB1E8E0093558B /* BaseEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9F76C123FB1E8E0093558B /* BaseEventResponse.swift */; };
 		0D9F76C423FB212F0093558B /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9F76C323FB212F0093558B /* EventViewModel.swift */; };
+		0DA22689243797FA00186D0E /* BaseCreationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA22688243797FA00186D0E /* BaseCreationResponse.swift */; };
 		0DA9EB8B23F31BE800AED815 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA9EB8A23F31BE800AED815 /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		0D9EC5F9236CBA4E00A7A3BA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0D9F76C123FB1E8E0093558B /* BaseEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEventResponse.swift; sourceTree = "<group>"; };
 		0D9F76C323FB212F0093558B /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		0DA22688243797FA00186D0E /* BaseCreationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCreationResponse.swift; sourceTree = "<group>"; };
 		0DA9EB8A23F31BE800AED815 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 				0D602D75238DBFF3008BF57E /* Event.swift */,
 				0D602D77238DC21C008BF57E /* CreateEventResponse.swift */,
 				0D9F76C123FB1E8E0093558B /* BaseEventResponse.swift */,
+				0DA22688243797FA00186D0E /* BaseCreationResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				0D11A12623672B5000C17F61 /* ContentView.swift in Sources */,
 				0D4146BF2373552F00940CE9 /* CustomTabView.swift in Sources */,
 				0D602D74238DB138008BF57E /* MasterService.swift in Sources */,
+				0DA22689243797FA00186D0E /* BaseCreationResponse.swift in Sources */,
 				0D9F76C223FB1E8E0093558B /* BaseEventResponse.swift in Sources */,
 				0D548F5D2409554D00448D22 /* CreateEventView.swift in Sources */,
 				0D948E67241187BB00F8C5BB /* EditEventView.swift in Sources */,
