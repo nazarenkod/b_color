@@ -56,13 +56,10 @@ struct Event: Codable {
     public init(id: Int,clientName: String, phoneNumber: String, instagram:String, price:String,date: Date,time: Date,duration: Date,master: Int){
               let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd.MM.yyyy"
-            
             let timeFormatter = DateFormatter()
             timeFormatter.dateFormat = "HH:mm"
-            
             let durationFormatter = DateFormatter()
             durationFormatter.dateFormat = "HH:mm"
-            
             self.id = id
             self.clientName = clientName
             self.phoneNumber = phoneNumber

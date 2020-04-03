@@ -17,6 +17,16 @@ struct BaseEventResponse: Decodable {
     let events: [EventResponse]
     
     
+    public init(status: String, events: [EventResponse]){
+        self.status = status
+        self.events = events
+    }
+    
+    public init(baseEventResponse: BaseEventResponse){
+        self.status = baseEventResponse.status
+        self.events = baseEventResponse.events
+    }
+    
 }
 
 

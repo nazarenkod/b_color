@@ -14,6 +14,7 @@ public class EventViewModel: ObservableObject {
     @Published var events = [EventResponse]()
     @Published var loading = true
     @Published var status = "error"
+    @Published var baseEventResponse = BaseEventResponse(status:"",events: [])
     
     
     
@@ -33,24 +34,30 @@ public class EventViewModel: ObservableObject {
 
     
     
-
-    
     func fetchEvents(){
-        MasterService().getAllEvents { events in
-            if let events = events {
-                DispatchQueue.main.async {
-                   self.events = events.map(EventResponse.init)
-                }
-                
-                print("events fetch \(self.events)")
-                self.loading = false
-                
-                
-               
-               
+        MasterService().getAllEvents { baseEventResponse in
+            self.baseEventResponse = baseEventResponse!
+            self.events = self.baseEventResponse.events
+            if self.baseEventResponse.status == "success"{
+                print(self.baseEventResponse.status)
+             self.loading = false
             }
+            
         }
     }
+    
+//    func fetchEvents(){
+//        MasterService().getAllEvents { events in
+//            if let events = events {
+//                DispatchQueue.main.async {
+//                   self.events = events.map(EventResponse.init)
+//                }
+//
+//                print("events fetch \(self.events)")
+//                self.loading = false
+//            }
+//        }
+//    }
     
     func removeEvent(eventId:String){
         self.status = MasterService().removeEvent(eventId: eventId)

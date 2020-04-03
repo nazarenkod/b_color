@@ -136,38 +136,8 @@ class MasterService {
         }.resume()
     }
     
-    func getAllEvents(completion: @escaping ([EventResponse]?) -> ()) {
-
-        guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/event") else {
-
-            completion(nil)
-            return
-        }
-        var request = URLRequest(url:url)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil
-
-                else {
-                   DispatchQueue.main.async {
-
-                             completion(nil)
-                         }
-                return
-            }
-
-            let events = try? JSONDecoder().decode([EventResponse].self, from: data)
-            DispatchQueue.main.async {
-                completion(events)
-            }
-
-
-        }.resume()
-    }
-    
-//    func getAllEvents(completion: @escaping (BaseEventResponse?) -> ()) {
-//        
+//    func getAllEvents(completion: @escaping ([EventResponse]?) -> ()) {
+//
 //        guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/event") else {
 //
 //            completion(nil)
@@ -175,30 +145,60 @@ class MasterService {
 //        }
 //        var request = URLRequest(url:url)
 //        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        
+//
 //        URLSession.shared.dataTask(with: request) { data, response, error in
 //            guard let data = data, error == nil
-//            
+//
 //                else {
 //                   DispatchQueue.main.async {
-//                    
+//
 //                             completion(nil)
 //                         }
 //                return
 //            }
-//            
-//            let response = try? JSONDecoder().decode(BaseEventResponse.self, from: data)
-//            if let baseEventResponse = response {
-//                let baseEventResponse = baseEventResponse
-//                DispatchQueue.main.async {
-//                               completion(baseEventResponse)
-//                           }
-//            } else {
-//                completion(nil)
+//
+//            let events = try? JSONDecoder().decode([EventResponse].self, from: data)
+//            DispatchQueue.main.async {
+//                completion(events)
 //            }
-//           
-//            
-//            
+//
+//
 //        }.resume()
 //    }
+    
+    func getAllEvents(completion: @escaping (BaseEventResponse?) -> ()) {
+        
+        guard let url = URL(string: "https://bcolor-calendar.herokuapp.com/event") else {
+
+            completion(nil)
+            return
+        }
+        var request = URLRequest(url:url)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil
+            
+                else {
+                   DispatchQueue.main.async {
+                    
+                             completion(nil)
+                         }
+                return
+            }
+            
+            let response = try? JSONDecoder().decode(BaseEventResponse.self, from: data)
+            if let baseEventResponse = response {
+                let baseEventResponse = baseEventResponse
+                DispatchQueue.main.async {
+                               completion(baseEventResponse)
+                           }
+            } else {
+                completion(nil)
+            }
+           
+            
+            
+        }.resume()
+    }
 }
