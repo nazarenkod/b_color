@@ -10,17 +10,15 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var selected: Int = 1
-    
-    
     var body: some View {
+     
         
-        return TabView(selection: $selected) {
+        return TabView() {
             EventsView()
                 .tabItem {
                     CustomTabView(iconName: "1.circle", tabName: "Записи")
             }.tag(0)
-            MasterView()
+            MasterView(viewModel: .init())
                 .tabItem {
                     CustomTabView(iconName: "2.circle", tabName: "Добавить запись")
             }.tag(1)
