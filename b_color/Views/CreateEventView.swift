@@ -1,84 +1,127 @@
 //
-//  CreateEventViewTest.swift
-//  b_color
+//  CreateEventView.swift
+//  b_color_refactoring
 //
-//  Created by Dmitriy Nazarenko on 28.02.2020.
+//  Created by Dmitriy Nazarenko on 10.04.2020.
 //  Copyright © 2020 Dmitriy Nazarenko. All rights reserved.
 //
 
 import SwiftUI
 
 struct CreateEventView: View {
-      @Binding var showModal: Bool
-    @EnvironmentObject var eventVM: EventViewModel
-        @ObservedObject var masterVM = MasterViewModel()
-        @State private var clientName: String = ""
-        @State private var phoneNumber: String = ""
-        @State private var instagram: String = ""
-        @State private var price: String = ""
-        @State private var date = Date()
-         @State private var time = Date()
-         @State private var duration = Date()
-    @State private var selectedMaster = 0
-        var body: some View {
+    @EnvironmentObject var eventViewModel: EventViewModel
+    @State var masterId = 0
+    @State var procedureId = 0
+    @Binding var showSheet:Bool
+    @State var clientName = ""
+    @State var phoneNumber = ""
+    @State var instagram = ""
+    @State var price = ""
+    @Binding  var date:Date
+    @State var time = Date().toDefault()
+    @State var duration = Date().toDefault()
+    @State var additionalInfo = ""
+    @State var freeDay = false
+    var body: some View {
+        
+        CustomAlert(date: self.$date, showSheet: self.$showSheet, isShowing: self.$eventViewModel.showAlert) {
             
             NavigationView {
-               Form {
-                    Section(header: Text("Мастер")){
-                        Picker(selection: $selectedMaster, label: Text("Мастер")) {ForEach(masterVM.masters) { master in Text(master.name)}}
+                
+                Form {
+                    Section(header: Text("Мастер")
+                        .font(Font.system(size: 15, weight: .medium, design: .serif))){
+                            Picker(selection: self.$masterId, label: Text("Мастер").foregroundColor(Color.white).font(Font.system(size: 15, weight: .medium, design: .serif))) {ForEach(self.eventViewModel.masters) { master in Text(master.name).foregroundColor(Color.white)
+                                }}.padding()
+                            Toggle(isOn: self.$freeDay) {
+                                Text("Выходной").foregroundColor(Color.white).font(Font.system(size: 15, weight: .medium, design: .serif))
+                            }.padding()
+                            if self.freeDay == false {
+                                Picker(selection: self.$procedureId, label: Text("Процедура").foregroundColor(Color.white).font(Font.system(size: 15, weight: .medium, design: .serif))) {ForEach(self.eventViewModel.procedures) { procedure in Text(procedure.name).foregroundColor(Color.white)}}.padding()
+                                
+                            }else {
+                                DatePicker(selection: self.$date, displayedComponents: .date) {Text("Дата").colorInvert()
+                                    .font(Font.system(size: 15, weight: .medium, design: .serif))
+                                    .foregroundColor(Color.white)
+                                }.padding().colorInvert()
+                            }
+                            if self.freeDay == false {
+                                Section(header: Text("Данные клиента").font(Font.system(size: 15, weight: .medium, design: .serif))){
+                                    LabelTextField(text:self.$clientName,placeholder: "Имя", label: "Имя клиента")
+                                    LabelTextField(text:self.$phoneNumber,placeholder: "Телефон", label: "Номер телефона").keyboardType(.numberPad)
+                                    LabelTextField(text:self.$instagram,placeholder: "instagram", label: "instagram")
+                                    LabelTextField(text:self.$price,placeholder: "Цена", label: "Цена").keyboardType(.numberPad)
+                                    LabelTextField(text:self.$additionalInfo,placeholder: "Дополнительная информация", label: "Дополнительная информация")
+                                }
+                                Section(header: Text("Дата и время").font(Font.system(size: 15, weight: .medium, design: .serif))){
+                                    HStack(alignment: .center) {
+                                    DatePicker(selection: self.$date, displayedComponents: .date) {Text("Дата").colorInvert()
+                                        .padding(10)
+                                        .font(Font.system(size: 15, weight: .medium, design: .serif))
+                                        .foregroundColor(Color.white)
+                                    }.colorInvert()
+                                    }
+                                    HStack(alignment: .center) {
+                                    DatePicker(selection: self.$time, displayedComponents: .hourAndMinute) {Text("Время").colorInvert()
+                                        .padding(10)
+                                        .font(Font.system(size: 15, weight: .medium, design: .serif))
+                                        .foregroundColor(Color.white)
+                                        }.colorInvert()
+                                    }
+                                    HStack(alignment: .center) {
+                                    DatePicker(selection: self.$duration, displayedComponents:.hourAndMinute)
+                                    {Text("Продолжительность").colorInvert()
+                                        .padding(10)
+                                        .font(Font.system(size: 15, weight: .medium, design: .serif))
+                                        .foregroundColor(Color.white)
+                                    }.colorInvert()
+                                    }
+                                }
+                            }
+                            
                     }
-                    Section(header: Text("Данные клиента")){
-                        TextField("Фамилия Имя",text: self.$clientName)
-                        TextField("Номер телефона",text: self.$phoneNumber)
-                        TextField("instagram",text: self.$instagram)
-                        TextField("Цена",text: self.$price)
-                    }
-                    Section(header: Text("Дата и время посещения")){
-                        DatePicker(selection: self.$date, displayedComponents: .date) {Text("Дата")}
-                        DatePicker(selection: self.$time, displayedComponents: .hourAndMinute) {Text("Время")}
-                        DatePicker(selection: self.$duration, displayedComponents:.hourAndMinute) {Text("Продолжительность")}
-                    }
+                    
                     HStack(){
                         Spacer()
-                        Button(action: {
-                            self.eventVM.createOrder(
-                                clientName: self.clientName,
-                                phoneNumber: self.phoneNumber,
-                                instagram: self.instagram,
-                                price: self.price,
-                                date: self.date,
-                                time: self.time,
-                                duration: self.duration,
-                                master: self.selectedMaster
-                            )
-                            self.eventVM.fetchEvents()
-                            self.showModal.toggle()
-                            
-                          
-                        }){Text("Записать")}.padding(EdgeInsets(top: 12, leading: 100,bottom: 12, trailing: 100))
-                            .foregroundColor(Color.white)
-                            .background(Color(red: 46/255,green: 204/255,blue:113/255))
-                            .cornerRadius(10)
-                            .disabled(
-                                self.clientName.isEmpty ||
-                                    self.phoneNumber.isEmpty ||
-                                    self.instagram.isEmpty ||
-                                    self.price.isEmpty
-                        )
+                        if self.freeDay == false {
+                            Button(action: {
+                                self.eventViewModel.createEvent(clientName: self.clientName, phoneNumber: self.phoneNumber, instagram: self.instagram, price: self.price,date: self.date,time: self.time,duration: self.duration, masterId: self.masterId, procedureId: self.procedureId, additionalInfo: self.additionalInfo,freeDay: self.freeDay)
+                            }
+                                )
+                            {Text("Записать")}.padding(EdgeInsets(top: 12, leading: 100,bottom: 12, trailing: 100))
+                                .foregroundColor(Color.black)
+                                .font(Font.system(size: 25, weight: .medium, design: .serif))
+                                
+                                .background(self.eventViewModel.isEventValid(clientName: self.clientName, phoneNumber: self.phoneNumber, instagram: self.instagram, price: self.price, masterId: self.masterId, procedureId: self.procedureId) ? Color.green : Color.gray)
+                                .cornerRadius(10)
+                                .disabled( !self.eventViewModel.isEventValid(clientName: self.clientName, phoneNumber: self.phoneNumber, instagram: self.instagram, price: self.price, masterId: self.masterId, procedureId: self.procedureId) )
+                        }else {
+                            Button(action: {
+                                self.eventViewModel.createEvent(date: self.date, masterId: self.masterId, freeDay: self.freeDay)
+                                
+                            }
+                                )
+                            {Text("Записать")}.padding(EdgeInsets(top: 12, leading: 100,bottom: 12, trailing: 100))
+                                .foregroundColor(Color.black)
+                                .font(Font.system(size: 25, weight: .medium, design: .serif))
+                                .background(self.eventViewModel.isEventValid(masterId: self.masterId) ? Color.green : Color.gray)
+                                .disabled( !self.eventViewModel.isEventValid(masterId: self.masterId) )
+                                .cornerRadius(10)
+                        }
+                        
                         Spacer()
                     }
-                }.foregroundColor(Color.blue).padding(0)
-                .navigationBarTitle(Text("Добавить запись"), displayMode: .large)
-                
-                }.navigationViewStyle(StackNavigationViewStyle())
+                }
+                .navigationBarTitle(Text("Добавить запись"),displayMode: .large)
+            }.navigationViewStyle(StackNavigationViewStyle())
         }
-}
         
         
+        }
+    }
 
-
-//struct CreateEventViewTest_Previews: PreviewProvider {
+//struct CreateEventView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CreateEventViewTest()
+//        CreateEventView()
 //    }
 //}

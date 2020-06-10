@@ -1,8 +1,15 @@
+//
+//  MasterResponse.swift
+//  b_color_refactoring
+//
+//  Created by Dmitriy Nazarenko on 08.04.2020.
+//  Copyright © 2020 Dmitriy Nazarenko. All rights reserved.
+//
+
 import Foundation
-import SwiftUI
 
 
-struct Master: Decodable, Identifiable, Hashable {
+struct Master: Decodable, Identifiable, Hashable,Encodable {
     let id: Int
     let name: String
     
@@ -23,9 +30,5 @@ struct MasterResponse: Decodable {
     
     let status: String
     let masters: [Master]
+    
 }
-
-
-
-
-
